@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>答题页面</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="left-panel">
+            <div class="mode-section">
+                <h3>模式</h3>
+                <select id="mode-select" onchange="changeMode()">
+                    <option value="sequential">顺序做题</option>
+                    <option value="random">乱序做题</option>
+                    <option value="view">直接看题</option>
+                </select>
+            </div>
+            
+            <div class="progress-section">
+                <h3>题目进度</h3>
+                <div id="question-numbers" class="question-numbers"></div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div id="question-content">
+                <div class="question-header">
+                    <span id="question-number"></span>
+                    <button onclick="location.href='select.html'" class="back-btn">返回题库</button>
+                </div>
+                <div id="question-text" class="question-text"></div>
+                <div id="options" class="options"></div>
+                <div id="explanation" class="explanation"></div>
+                <div class="navigation">
+                    <button onclick="previousQuestion()" id="prev-btn">上一题</button>
+                    <button onclick="nextQuestion()" id="next-btn">下一题</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

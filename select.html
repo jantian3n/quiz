@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择题库</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>选择题库</h1>
+        <div id="bank-list" class="bank-list"></div>
+    </div>
+
+    <script>
+        const questionBanks = [
+            { id: 'bank1', name: '词汇辨析', file: 'data/questions-bank1.json' },
+            { id: 'bank2', name: '语法专项', file: 'data/questions-bank2.json' },
+            { id: 'bank3', name: '综合练习', file: 'data/questions-bank3.json' }
+        ];
+
+        const bankListEl = document.getElementById('bank-list');
+        
+        questionBanks.forEach(bank => {
+            const button = document.createElement('button');
+            button.className = 'bank-btn';
+            button.textContent = bank.name;
+            button.onclick = () => {
+                localStorage.setItem('selectedBank', JSON.stringify(bank));
+                location.href = 'quiz.html';
+            };
+            bankListEl.appendChild(button);
+        });
+    </script>
+</body>
+</html>

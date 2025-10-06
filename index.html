@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATTI俄语二级笔译题库</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CATTI俄语二级笔译题库</h1>
+        <div class="button-group">
+            <button class="main-btn" onclick="location.href='select.html'">开始</button>
+            <button class="main-btn" onclick="showInstructions()">说明</button>
+        </div>
+    </div>
+
+    <div id="instructions-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeInstructions()">&times;</span>
+            <h2>使用说明</h2>
+            <ul>
+                <li>选择题库后，可以选择三种模式：顺序做题、乱序做题、直接看题</li>
+                <li>绿色表示答对的题目，红色表示答错的题目</li>
+                <li>点击题号可以快速跳转到对应题目</li>
+                <li>答错后会显示详细解析</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showInstructions() {
+            document.getElementById('instructions-modal').style.display = 'block';
+        }
+
+        function closeInstructions() {
+            document.getElementById('instructions-modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('instructions-modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
