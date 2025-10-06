@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "question": "бить",
+    "options": [
+      "敲打",
+      "忘记",
+      "杀死",
+      "压下"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 2,
+    "question": "пробивать — пробить",
+    "options": [
+      "打碎",
+      "打通",
+      "杀死",
+      "迷路"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 3,
+    "question": "прибивать — прибить",
+    "options": [
+      "钉上",
+      "打人",
+      "打碎",
+      "打通"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 4,
+    "question": "забивать — забить",
+    "options": [
+      "射进球",
+      "忘记",
+      "打通",
+      "迷路"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 5,
+    "question": "выбиваться — выбиться",
+    "options": [
+      "挣脱",
+      "忘记",
+      "杀死",
+      "打碎"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 6,
+    "question": "набивать — набить",
+    "options": [
+      "塞满",
+      "钉上",
+      "打碎",
+      "忘记"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 7,
+    "question": "отбирать — отбить",
+    "options": [
+      "夺回",
+      "打碎",
+      "忘记",
+      "钉上"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 8,
+    "question": "отбиваться — отбиться",
+    "options": [
+      "抵抗",
+      "打碎",
+      "忘记",
+      "钉上"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 9,
+    "question": "разбивать — разбить",
+    "options": [
+      "打碎",
+      "忘记",
+      "射进球",
+      "杀死"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 10,
+    "question": "сбиваться — сбиться",
+    "options": [
+      "迷路",
+      "忘记",
+      "钉上",
+      "打人"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 11,
+    "question": "убивать — убить",
+    "options": [
+      "杀死",
+      "忘记",
+      "打通",
+      "迷路"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  }
+]
