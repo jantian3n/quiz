@@ -10,69 +10,154 @@
     <div class="container">
         <h1>选择题库</h1>
         <div id="bank-list" class="bank-list">
-            <div style="text-align: center; color: #666;">加载中...</div>
+            <div style="text-align: center; color: #666;">正在扫描题库...</div>
         </div>
         <button onclick="location.href='index.html'" style="margin-top: 20px;" class="back-btn">返回主页</button>
     </div>
 
     <script>
-        // 从配置文件加载题库列表
+        // 扩展的题库列表 - 支持更多命名方式
+        const potentialBanks = [];
+        
+        // 自动生成 bank1-bank20 的检测列表
+        for (let i = 1; i <= 20; i++) {
+            potentialBanks.push({
+                id: `bank${i}`,
+                file: `data/questions-bank${i}.json`
+            });
+        }
+        
+        // 也支持其他常见命名
+        const commonNames = ['cihui', 'yufa', 'zonghhe', 'moni', 'test', 'practice'];
+        commonNames.forEach(name => {
+            potentialBanks.push({
+                id: name,
+                file: `data/${name}.json`
+            });
+            potentialBanks.push({
+                id: `questions-${name}`,
+                file: `data/questions-${name}.json`
+            });
+        });
+
+        // 从文件名生成友好的显示名称
+        function generateDisplayName(filename, questionCount) {
+            const nameMap = {
+                'bank1': '词汇辨析',
+                'bank2': '语法专项',
+                'bank3': '综合练习',
+                'cihui': '词汇练习',
+                'yufa': '语法练习',
+                'zonghhe': '综合练习',
+                'moni': '模拟测试',
+                'test': '测试题库',
+                'practice': '练习题库'
+            };
+            
+            // 尝试从映射中获取名称
+            for (let [key, value] of Object.entries(nameMap)) {
+                if (filename.includes(key)) {
+                    return `${value} (${questionCount}题)`;
+                }
+            }
+            
+            // 如果没有映射，使用文件名
+            const baseName = filename.replace('data/', '').replace('.json', '').replace('questions-', '');
+            return `题库: ${baseName} (${questionCount}题)`;
+        }
+
         async function loadBanks() {
             const bankListEl = document.getElementById('bank-list');
             
-            try {
-                const response = await fetch('data/banks-config.json');
-                if (!response.ok) {
-                    throw new Error('配置文件加载失败');
-                }
-                
-                const config = await response.json();
-                const banks = config.banks;
-                
-                if (banks.length === 0) {
-                    bankListEl.innerHTML = '<div style="text-align: center; color: #999;">暂无题库</div>';
-                    return;
-                }
-                
-                bankListEl.innerHTML = '';
-                
-                // 为每个题库创建按钮
-                for (const bank of banks) {
-                    // 验证题库文件是否存在
-                    try {
-                        const testResponse = await fetch(bank.file, { method: 'HEAD' });
-                        if (!testResponse.ok) continue;
-                    } catch (e) {
-                        continue;
-                    }
+            // 并发检测所有可能的题库文件
+            const checkPromises = potentialBanks.map(async (bank) => {
+                try {
+                    const response = await fetch(bank.file, {
+                        method: 'GET',
+                        cache: 'no-cache'
+                    });
                     
-                    const bankCard = document.createElement('div');
-                    bankCard.className = 'bank-card';
-                    bankCard.innerHTML = `
-                        <h3>${bank.name}</h3>
-                        ${bank.description ? `<p>${bank.description}</p>` : ''}
-                    `;
-                    bankCard.onclick = () => {
-                        localStorage.setItem('selectedBank', JSON.stringify(bank));
-                        location.href = 'quiz.html';
-                    };
-                    bankListEl.appendChild(bankCard);
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        // 验证数据格式
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 检查第一个题目是否有必需的字段
+                            const firstQuestion = data[0];
+                            if (firstQuestion.question && firstQuestion.options && 
+                                firstQuestion.correctAnswer !== undefined) {
+                                
+                                return {
+                                    id: bank.id,
+                                    file: bank.file,
+                                    name: generateDisplayName(bank.file, data.length),
+                                    questionCount: data.length,
+                                    valid: true
+                                };
+                            }
+                        }
+                    }
+                } catch (error) {
+                    // 文件不存在或格式错误
+                    return null;
                 }
-                
-            } catch (error) {
-                console.error('加载题库配置失败:', error);
+                return null;
+            });
+
+            const results = await Promise.all(checkPromises);
+            const validBanks = results.filter(bank => bank !== null && bank.valid);
+
+            if (validBanks.length === 0) {
                 bankListEl.innerHTML = `
-                    <div style="text-align: center; color: #f44336;">
-                        <p>❌ 加载题库失败</p>
-                        <p style="font-size: 0.9em; margin-top: 10px;">
-                            请确保 data/banks-config.json 文件存在
-                        </p>
+                    <div style="text-align: center; padding: 40px;">
+                        <p style="color: #ff9800; font-size: 1.3em; margin-bottom: 15px;">📚 未找到题库文件</p>
+                        <div style="text-align: left; max-width: 500px; margin: 0 auto; background: #f5f5f5; padding: 20px; border-radius: 8px;">
+                            <p style="color: #666; font-size: 0.95em; margin-bottom: 10px;">
+                                <strong>请在 data/ 文件夹中添加题库文件</strong>
+                            </p>
+                            <p style="color: #666; font-size: 0.9em;">支持的文件名：</p>
+                            <ul style="color: #666; font-size: 0.9em; margin-top: 5px;">
+                                <li>questions-bank1.json</li>
+                                <li>questions-bank2.json</li>
+                                <li>cihui.json (词汇)</li>
+                                <li>yufa.json (语法)</li>
+                                <li>等等...</li>
+                            </ul>
+                        </div>
                     </div>
                 `;
+                return;
             }
+
+            // 按题目数量排序
+            validBanks.sort((a, b) => a.id.localeCompare(b.id));
+
+            // 显示找到的题库
+            bankListEl.innerHTML = '';
+            validBanks.forEach(bank => {
+                const bankCard = document.createElement('div');
+                bankCard.className = 'bank-card';
+                bankCard.innerHTML = `
+                    <h3>${bank.name}</h3>
+                    <p style="color: #667eea; font-size: 0.9em;">
+                        💾 ${bank.file.replace('data/', '')}
+                    </p>
+                `;
+                bankCard.onclick = () => {
+                    localStorage.setItem('selectedBank', JSON.stringify(bank));
+                    location.href = 'quiz.html';
+                };
+                bankListEl.appendChild(bankCard);
+            });
+
+            // 显示统计信息
+            const totalQuestions = validBanks.reduce((sum, bank) => sum + bank.questionCount, 0);
+            const statsDiv = document.createElement('div');
+            statsDiv.style.cssText = 'text-align: center; margin-top: 20px; color: #666; font-size: 0.9em;';
+            statsDiv.innerHTML = `找到 ${validBanks.length} 个题库，共 ${totalQuestions} 道题目`;
+            document.querySelector('.container').insertBefore(statsDiv, document.querySelector('.back-btn'));
         }
-        
-        // 页面加载时执行
+
         window.onload = loadBanks;
     </script>
 </body>
