@@ -9,28 +9,71 @@
 <body>
     <div class="container">
         <h1>选择题库</h1>
-        <div id="bank-list" class="bank-list"></div>
+        <div id="bank-list" class="bank-list">
+            <div style="text-align: center; color: #666;">加载中...</div>
+        </div>
+        <button onclick="location.href='index.html'" style="margin-top: 20px;" class="back-btn">返回主页</button>
     </div>
 
     <script>
-        const questionBanks = [
-            { id: 'bank1', name: '词汇辨析', file: 'data/questions-bank1.json' },
-            { id: 'bank2', name: '语法专项', file: 'data/questions-bank2.json' },
-            { id: 'bank3', name: '综合练习', file: 'data/questions-bank3.json' }
-        ];
-
-        const bankListEl = document.getElementById('bank-list');
+        // 从配置文件加载题库列表
+        async function loadBanks() {
+            const bankListEl = document.getElementById('bank-list');
+            
+            try {
+                const response = await fetch('data/banks-config.json');
+                if (!response.ok) {
+                    throw new Error('配置文件加载失败');
+                }
+                
+                const config = await response.json();
+                const banks = config.banks;
+                
+                if (banks.length === 0) {
+                    bankListEl.innerHTML = '<div style="text-align: center; color: #999;">暂无题库</div>';
+                    return;
+                }
+                
+                bankListEl.innerHTML = '';
+                
+                // 为每个题库创建按钮
+                for (const bank of banks) {
+                    // 验证题库文件是否存在
+                    try {
+                        const testResponse = await fetch(bank.file, { method: 'HEAD' });
+                        if (!testResponse.ok) continue;
+                    } catch (e) {
+                        continue;
+                    }
+                    
+                    const bankCard = document.createElement('div');
+                    bankCard.className = 'bank-card';
+                    bankCard.innerHTML = `
+                        <h3>${bank.name}</h3>
+                        ${bank.description ? `<p>${bank.description}</p>` : ''}
+                    `;
+                    bankCard.onclick = () => {
+                        localStorage.setItem('selectedBank', JSON.stringify(bank));
+                        location.href = 'quiz.html';
+                    };
+                    bankListEl.appendChild(bankCard);
+                }
+                
+            } catch (error) {
+                console.error('加载题库配置失败:', error);
+                bankListEl.innerHTML = `
+                    <div style="text-align: center; color: #f44336;">
+                        <p>❌ 加载题库失败</p>
+                        <p style="font-size: 0.9em; margin-top: 10px;">
+                            请确保 data/banks-config.json 文件存在
+                        </p>
+                    </div>
+                `;
+            }
+        }
         
-        questionBanks.forEach(bank => {
-            const button = document.createElement('button');
-            button.className = 'bank-btn';
-            button.textContent = bank.name;
-            button.onclick = () => {
-                localStorage.setItem('selectedBank', JSON.stringify(bank));
-                location.href = 'quiz.html';
-            };
-            bankListEl.appendChild(button);
-        });
+        // 页面加载时执行
+        window.onload = loadBanks;
     </script>
 </body>
 </html>
