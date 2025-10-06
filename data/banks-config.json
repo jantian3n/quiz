@@ -1,0 +1,10 @@
+{
+  "questionBanks": [
+    {
+      "id": "bank1",
+      "name": "同根词",
+      "file": "data/同根词.json",
+      "description": "同根词"
+    }
+  ]
+}
