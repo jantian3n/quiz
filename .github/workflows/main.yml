@@ -1,0 +1,66 @@
+name: 自动生成题库索引
+
+# 触发条件
+on:
+  # 当 data 文件夹下的 .json 文件有变化时触发
+  push:
+    paths:
+      - 'data/*.json'
+      - '!data/index.json'  # 排除 index.json 本身
+    branches:
+      - main
+  
+  # 允许手动触发
+  workflow_dispatch:
+
+# 权限设置
+permissions:
+  contents: write
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 检出代码
+      - name: 📥 检出代码
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      # 2. 设置 Node.js 环境
+      - name: 📦 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      # 3. 运行生成脚本
+      - name: 🔨 生成题库索引
+        run: node generate-index.js
+      
+      # 4. 检查是否有变化
+      - name: 🔍 检查变化
+        id: check_changes
+        run: |
+          if git diff --quiet data/index.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "没有检测到变化"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "检测到索引文件变化"
+          fi
+      
+      # 5. 提交并推送变化
+      - name: 📤 提交索引文件
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/index.json
+          git commit -m "🤖 自动更新题库索引 [skip ci]"
+          git push
+      
+      # 6. 显示结果
+      - name: ✅ 完成
+        if: steps.check_changes.outputs.changed == 'true'
+        run: echo "题库索引已自动更新并推送到仓库"
