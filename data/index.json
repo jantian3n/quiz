@@ -1,0 +1,13 @@
+{
+  "lastUpdated": "2025-10-06T11:14:26.644Z",
+  "totalBanks": 1,
+  "totalQuestions": 30,
+  "banks": [
+    {
+      "id": "同根词",
+      "name": "同根词",
+      "file": "data/同根词.json",
+      "questionCount": 30
+    }
+  ]
+}
