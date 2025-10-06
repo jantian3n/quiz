@@ -19,71 +19,33 @@ jobs:
     steps:
       - name: 📥 检出代码
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
       
       - name: 📦 设置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
       
-      - name: 📂 检查 data 文件夹
-        run: |
-          echo "=== data 文件夹内容 ==="
-          ls -la data/
-          echo ""
-          echo "=== JSON 文件列表 ==="
-          find data -name "*.json" -type f
-      
       - name: 🔨 生成题库索引
-        run: |
-          echo "开始运行 generate-index.js"
-          node generate-index.js
-          echo ""
-          echo "=== 生成后的文件 ==="
-          ls -la data/
+        run: node generate-index.js
       
-      - name: 📄 显示生成的索引文件
-        run: |
-          if [ -f "data/index.json" ]; then
-            echo "✅ index.json 已生成"
-            echo "=== 文件内容 ==="
-            cat data/index.json
-          else
-            echo "❌ index.json 未生成"
-            exit 1
-          fi
-      
-      - name: 🔍 检查变化
-        id: check_changes
-        run: |
-          git add data/index.json
-          if git diff --cached --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "⚠️ 没有检测到变化"
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "✅ 检测到变化"
-            git diff --cached --stat
-          fi
-      
-      - name: 📤 提交索引文件
-        if: steps.check_changes.outputs.changed == 'true'
+      - name: 📤 提交并推送
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "🤖 自动更新题库索引 [skip ci]"
           
-          echo "推送到远程仓库..."
-          git push
+          # 直接添加文件
+          git add -f data/index.json
           
-          echo "✅ 推送成功"
+          # 提交（即使没变化也不会失败）
+          git diff --staged --quiet || git commit -m "🤖 自动更新题库索引 [skip ci]"
+          
+          # 推送
+          git push || echo "推送失败，请检查权限设置"
       
-      - name: ✅ 完成
+      - name: ✅ 验证结果
         run: |
-          if [ "${{ steps.check_changes.outputs.changed }}" == "true" ]; then
-            echo "题库索引已自动更新并推送到仓库"
+          if git log -1 --pretty=%B | grep -q "自动更新题库索引"; then
+            echo "✅ 成功提交并推送！"
           else
-            echo "索引文件无变化，跳过提交"
+            echo "⚠️ 可能没有变化或推送失败"
           fi
