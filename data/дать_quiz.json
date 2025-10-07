@@ -1,0 +1,158 @@
+[
+  {
+    "id": 50,
+    "question": "передать",
+    "options": [
+      "传达",
+      "传递",
+      "转交",
+      "转达"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 51,
+    "question": "выдать",
+    "options": [
+      "收到、获得",
+      "发给、交给",
+      "购买、收购",
+      "隐藏、保密"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 52,
+    "question": "раздать",
+    "options": [
+      "交换彼此物品",
+      "把许多或全部东西分发出去",
+      "保留所有物品",
+      "收集整理物品"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 53,
+    "question": "издать",
+    "options": [
+      "翻译",
+      "印刷",
+      "编辑",
+      "出版"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 54,
+    "question": "дать",
+    "options": [
+      "购买",
+      "拒绝",
+      "接受",
+      "给予"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 55,
+    "question": "задать",
+    "options": [
+      "回答",
+      "接受",
+      "提出",
+      "理解"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 56,
+    "question": "надавать",
+    "options": [
+      "快速给予",
+      "少量给予",
+      "拿走很多次",
+      "给很多次、给很多"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 57,
+    "question": "отдать",
+    "options": [
+      "交还",
+      "借用",
+      "保留",
+      "购买"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 58,
+    "question": "подать",
+    "options": [
+      "端给",
+      "隐藏",
+      "破坏",
+      "扔掉"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 59,
+    "question": "предать",
+    "options": [
+      "背叛",
+      "放弃",
+      "传递",
+      "保护"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 60,
+    "question": "придать",
+    "options": [
+      "隐藏",
+      "减少",
+      "赋予",
+      "改变"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 61,
+    "question": "продать",
+    "options": [
+      "借",
+      "租",
+      "卖",
+      "买"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 62,
+    "question": "сдать",
+    "options": [
+      "通过（考试）",
+      "忘记",
+      "学习",
+      "购买"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  }
+]

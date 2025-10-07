@@ -1,0 +1,50 @@
+[
+  {
+    "id": 100,
+    "question": "заметить",
+    "options": [
+      "记录",
+      "评论",
+      "忽略",
+      "注意到"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 101,
+    "question": "отметить",
+    "options": [
+      "注意到、看出",
+      "庆祝、纪念",
+      "标记、标注",
+      "记录、记下"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 102,
+    "question": "подметить",
+    "options": [
+      "忽略、忽视",
+      "创造、发明",
+      "发现、看出",
+      "猜测、推测"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 103,
+    "question": "наметить",
+    "options": [
+      "完成",
+      "标记",
+      "忽略",
+      "擦除"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  }
+]

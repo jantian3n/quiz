@@ -1,0 +1,50 @@
+[
+  {
+    "id": 84,
+    "question": "заключение",
+    "options": [
+      "结束",
+      "监狱",
+      "结论",
+      "关闭"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 85,
+    "question": "исключение",
+    "options": [
+      "例外",
+      "排除",
+      "例外情况",
+      "排除法"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 86,
+    "question": "включение",
+    "options": [
+      "删除",
+      "接通",
+      "排除",
+      "关闭"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 87,
+    "question": "приключение",
+    "options": [
+      "旅行",
+      "经历",
+      "故事",
+      "冒险"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  }
+]

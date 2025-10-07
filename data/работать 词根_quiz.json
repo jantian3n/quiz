@@ -1,0 +1,122 @@
+[
+  {
+    "id": 119,
+    "question": "заработать",
+    "options": [
+      "休息；睡觉",
+      "挣钱；开始工作",
+      "学习；研究",
+      "旅行；探索"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 120,
+    "question": "проработать",
+    "options": [
+      "管理工作；简单浏览",
+      "开始工作；快速完成",
+      "停止工作；放弃研究",
+      "工作（若干时间）；仔细研究"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 121,
+    "question": "отработать",
+    "options": [
+      "开始工作",
+      "学习技能",
+      "加工完，干完",
+      "休息一下"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 122,
+    "question": "поработать",
+    "options": [
+      "完成工作",
+      "开始工作",
+      "工作一会儿",
+      "努力工作"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 123,
+    "question": "доработать",
+    "options": [
+      "开始工作",
+      "停止工作",
+      "检查工作",
+      "加工、补充加工"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 124,
+    "question": "доработаться",
+    "options": [
+      "努力工作",
+      "工作改进",
+      "工作过度（引起不良后果）",
+      "工作完成"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 125,
+    "question": "заработать(ся)",
+    "options": [
+      "开始工作",
+      "赚到钱",
+      "干得太多、忙得不可开交",
+      "努力工作"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 126,
+    "question": "наработаться",
+    "options": [
+      "努力工作",
+      "工作完成",
+      "干许多活，做了很多工作",
+      "开始工作"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 127,
+    "question": "подработать",
+    "options": [
+      "实习工作",
+      "志愿服务",
+      "全职工作",
+      "兼职工作"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 128,
+    "question": "сработать",
+    "options": [
+      "停止运行",
+      "出现故障",
+      "加速运转",
+      "开始运作"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  }
+]

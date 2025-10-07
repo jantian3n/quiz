@@ -1,0 +1,50 @@
+[
+  {
+    "id": 179,
+    "question": "охватить / обхватить",
+    "options": [
+      "用双手或手臂抱住",
+      "用眼睛观察",
+      "用语言描述",
+      "用工具测量"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 180,
+    "question": "прихватить",
+    "options": [
+      "紧紧抓住",
+      "匆忙离开",
+      "随身携带",
+      "突然想起"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 181,
+    "question": "захватить",
+    "options": [
+      "拿上",
+      "放下",
+      "丢失",
+      "忘记"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 182,
+    "question": "схватить",
+    "options": [
+      "轻轻地抚摸",
+      "缓慢地释放",
+      "随意地丢弃",
+      "急速地抓住"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  }
+]

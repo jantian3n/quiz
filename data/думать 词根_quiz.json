@@ -1,0 +1,74 @@
+[
+  {
+    "id": 63,
+    "question": "выдумать",
+    "options": [
+      "想象、构思",
+      "臆想、捏造",
+      "创造、发明",
+      "发现、察觉"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 64,
+    "question": "придумать",
+    "options": [
+      "经过思考想出结论或发明创造",
+      "快速忘记某事",
+      "模仿他人行为",
+      "破坏已有物品"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 65,
+    "question": "раздумать",
+    "options": [
+      "放弃原来的想法",
+      "重新考虑",
+      "坚持己见",
+      "改变主意"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 66,
+    "question": "обдумать",
+    "options": [
+      "全面考虑",
+      "快速决定",
+      "忽略细节",
+      "粗略浏览"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 67,
+    "question": "передумать",
+    "options": [
+      "改变原来的想法",
+      "提前思考",
+      "反复思考",
+      "深入思考"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 68,
+    "question": "продумать",
+    "options": [
+      "随意猜测",
+      "深思熟虑",
+      "粗略估计",
+      "快速浏览"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  }
+]

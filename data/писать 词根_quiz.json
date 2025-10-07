@@ -1,0 +1,50 @@
+[
+  {
+    "id": 104,
+    "question": "подписать",
+    "options": [
+      "签署文件",
+      "取消订单",
+      "订阅杂志",
+      "阅读文章"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 105,
+    "question": "списать",
+    "options": [
+      "翻译、解释、说明",
+      "抄写、抄袭、剽窃",
+      "创造、发明、设计",
+      "阅读、理解、分析"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 106,
+    "question": "выписать",
+    "options": [
+      "阅读、浏览",
+      "写作、撰写",
+      "订阅、订购",
+      "支付、付款"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 107,
+    "question": "записать",
+    "options": [
+      "阅读",
+      "记下",
+      "忘记",
+      "删除"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  }
+]

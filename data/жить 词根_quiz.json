@@ -1,0 +1,182 @@
+[
+  {
+    "id": 69,
+    "question": "выжить — выживать",
+    "options": [
+      "（主动地）放弃",
+      "（轻松地）生活",
+      "（快速地）成长",
+      "（重病、重伤之后）活下来"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 70,
+    "question": "зажить — заживать",
+    "options": [
+      "（声音）响亮，清晰",
+      "（伤口等）愈合，长好",
+      "（情绪）激动，兴奋",
+      "（物体）破裂，断裂"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 71,
+    "question": "нажить — наживать",
+    "options": [
+      "花费，消耗",
+      "捐赠，赠送",
+      "借入，借贷",
+      "赚得，积存"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 72,
+    "question": "пережить — переживать",
+    "options": [
+      "忘记",
+      "经历",
+      "创造",
+      "放弃"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 73,
+    "question": "до́живать — до́жить",
+    "options": [
+      "活到（某时）；花光，用尽",
+      "度过；花费",
+      "等待；停留",
+      "生活；居住"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 74,
+    "question": "изживать — изжить",
+    "options": [
+      "创造，建立（新事物）",
+      "忽略，忽视（问题）",
+      "重复，模仿（行为）",
+      "去除，根除（习惯、缺点）"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 75,
+    "question": "обживать — обжить",
+    "options": [
+      "快速搬运行李",
+      "重新装修房屋",
+      "清理居住环境",
+      "迁居到新地方后适应、住惯"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 76,
+    "question": "оживать — ожить",
+    "options": [
+      "死亡，消逝",
+      "遗忘，丢失",
+      "复活，活过来",
+      "沉睡，休眠"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 77,
+    "question": "отживать — отжить",
+    "options": [
+      "生长，发育；繁荣，兴盛",
+      "死亡，去世；消失，过时",
+      "工作，劳动；操作，运转",
+      "休息，放松；睡眠，安眠"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 78,
+    "question": "поживать — пожить",
+    "options": [
+      "生活一段时间",
+      "长期居住",
+      "短暂休息",
+      "快速移动"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 79,
+    "question": "проживать — прожить",
+    "options": [
+      "学习（一段时间），研究；掌握知识",
+      "生活（若干时间），居住；度过（时间、人生）",
+      "旅行（一段时间），移动；探索新地方",
+      "工作（一段时间），就业；完成任务"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 80,
+    "question": "жилищный",
+    "options": [
+      "住房的",
+      "家庭的",
+      "生活的",
+      "居住的"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 81,
+    "question": "жизнерадостный",
+    "options": [
+      "愤怒的",
+      "冷漠的",
+      "悲伤的",
+      "乐观的"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 82,
+    "question": "жизненный",
+    "options": [
+      "生活的",
+      "日常的",
+      "重要的",
+      "生命的"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 83,
+    "question": "жилой",
+    "options": [
+      "居住的",
+      "生活的",
+      "生动的",
+      "活跃的"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  }
+]

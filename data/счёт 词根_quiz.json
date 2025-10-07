@@ -1,0 +1,50 @@
+[
+  {
+    "id": 172,
+    "question": "счёт",
+    "options": [
+      "计算",
+      "账户",
+      "数字",
+      "账单"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 173,
+    "question": "отсчёт",
+    "options": [
+      "计算",
+      "测量",
+      "读数",
+      "计时"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  },
+  {
+    "id": 174,
+    "question": "подсчёт (подсчитать 的动名词)",
+    "options": [
+      "统计",
+      "测量",
+      "估算",
+      "计算"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 175,
+    "question": "расчёт",
+    "options": [
+      "预算",
+      "结算",
+      "计算",
+      "清算"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  }
+]

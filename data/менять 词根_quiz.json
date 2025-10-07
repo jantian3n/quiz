@@ -1,0 +1,98 @@
+[
+  {
+    "id": 92,
+    "question": "заменять (кого-что, кем-чем)",
+    "options": [
+      "交换",
+      "替代",
+      "改变",
+      "替换"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 93,
+    "question": "сменять",
+    "options": [
+      "改变",
+      "替换",
+      "交换",
+      "更换"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 94,
+    "question": "переменять",
+    "options": [
+      "替换",
+      "改变",
+      "交换",
+      "修改"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 95,
+    "question": "изменять (что)",
+    "options": [
+      "改变",
+      "翻译",
+      "测量",
+      "背叛"
+    ],
+    "correctAnswer": 0,
+    "explanation": ""
+  },
+  {
+    "id": 96,
+    "question": "обменять (что на что)",
+    "options": [
+      "购买（某物）",
+      "赠送（某物给某人）",
+      "出售（某物）",
+      "交换（用某物换某物）"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 97,
+    "question": "отменять (что)",
+    "options": [
+      "改变",
+      "取消",
+      "确认",
+      "推迟"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 98,
+    "question": "применять (что)",
+    "options": [
+      "应用",
+      "使用",
+      "申请",
+      "采用"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 99,
+    "question": "разменивать (что)",
+    "options": [
+      "交换（物品）",
+      "分解（物质）",
+      "兑换（零钱）",
+      "改变（计划）"
+    ],
+    "correctAnswer": 2,
+    "explanation": ""
+  }
+]

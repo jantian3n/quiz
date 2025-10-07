@@ -1,0 +1,50 @@
+[
+  {
+    "id": 88,
+    "question": "закрыть (что)",
+    "options": [
+      "清洁",
+      "修理",
+      "打开",
+      "关闭"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 89,
+    "question": "прикрыть (что)",
+    "options": [
+      "移动",
+      "遮盖",
+      "打开",
+      "破坏"
+    ],
+    "correctAnswer": 1,
+    "explanation": ""
+  },
+  {
+    "id": 90,
+    "question": "накрыть (кого-что)",
+    "options": [
+      "打开",
+      "移动",
+      "关闭",
+      "覆盖"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  },
+  {
+    "id": 91,
+    "question": "скрыть (что)",
+    "options": [
+      "揭露",
+      "暴露",
+      "掩盖",
+      "隐藏"
+    ],
+    "correctAnswer": 3,
+    "explanation": ""
+  }
+]
