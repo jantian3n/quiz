@@ -9,17 +9,283 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--md-sys-shape-corner-medium);
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn.create {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .action-btn.create:hover {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .action-btn.import {
+            background: var(--md-sys-color-secondary);
+            color: var(--md-sys-color-on-secondary);
+        }
+
+        .action-btn.import:hover {
+            background: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .hint-card {
+            background: var(--md-sys-color-tertiary-container);
+            color: var(--md-sys-color-on-tertiary-container);
+            padding: 16px 20px;
+            border-radius: var(--md-sys-shape-corner-large);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--md-sys-color-tertiary);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .import-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .import-modal-content {
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: var(--md-sys-shape-corner-extra-large);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .import-modal-header {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 40px 20px;
+            background: var(--md-sys-color-surface-variant);
+            border: 2px dashed var(--md-sys-color-outline);
+            border-radius: var(--md-sys-shape-corner-large);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-input-label:hover {
+            background: var(--md-sys-color-secondary-container);
+            border-color: var(--md-sys-color-secondary);
+        }
+
+        .file-input-label.has-file {
+            background: var(--md-sys-color-primary-container);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--md-sys-shape-corner-medium);
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.primary {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .modal-btn.primary:hover {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .modal-btn.secondary {
+            background: var(--md-sys-color-surface-variant);
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .modal-btn.secondary:hover {
+            background: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .local-banks-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--md-sys-color-outline-variant);
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--md-sys-color-primary);
+        }
+
+        .bank-card.local {
+            border: 2px solid var(--md-sys-color-tertiary);
+            background: linear-gradient(135deg, var(--md-sys-color-tertiary-container) 0%, var(--md-sys-color-surface) 100%);
+        }
+
+        .delete-local-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+            border: none;
+            padding: 6px 12px;
+            border-radius: var(--md-sys-shape-corner-small);
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .bank-card.local:hover .delete-local-btn {
+            opacity: 1;
+        }
+
+        .delete-local-btn:hover {
+            background: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>选择题库</h1>
+        
+        <div class="hint-card">
+            💡 <strong>提示：</strong>没有找到你想要的题库？可以自己创建一个，或者导入本地题库！
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn create" onclick="location.href='question-editor.html'">
+                ✏️ 创建新题库
+            </button>
+            <button class="action-btn import" onclick="showImportModal()">
+                📂 导入本地题库
+            </button>
+        </div>
+
+        <!-- 本地题库区域 -->
+        <div id="local-banks-section" class="local-banks-section" style="display: none;">
+            <div class="section-title">📱 本地题库</div>
+            <div id="local-bank-list" class="bank-list"></div>
+        </div>
+
+        <!-- 在线题库区域 -->
+        <div class="section-title" style="margin-top: 20px;">☁️ 在线题库</div>
         <div id="bank-list" class="bank-list">
             <div style="text-align: center; color: var(--md-sys-color-on-surface-variant);">正在加载题库...</div>
         </div>
+
         <button onclick="location.href='index.html'" style="margin-top: 24px;" class="back-btn">返回主页</button>
     </div>
 
+    <!-- 导入模态框 -->
+    <div id="importModal" class="import-modal">
+        <div class="import-modal-content">
+            <div class="import-modal-header">📂 导入本地题库</div>
+            <div class="import-modal-body">
+                <div class="file-input-wrapper">
+                    <label class="file-input-label" id="fileInputLabel">
+                        <div style="font-size: 48px; margin-bottom: 10px;">📄</div>
+                        <div style="font-weight: 500; margin-bottom: 5px;">点击选择 JSON 文件</div>
+                        <div style="font-size: 0.9em; opacity: 0.7;">或拖拽文件到此处</div>
+                    </label>
+                    <input type="file" id="fileInput" class="file-input" accept=".json" onchange="handleFileSelect(event)">
+                </div>
+                <div id="fileInfo" style="display: none; padding: 12px; background: var(--md-sys-color-surface-variant); border-radius: var(--md-sys-shape-corner-medium); font-size: 0.9em;"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="closeImportModal()">取消</button>
+                <button class="modal-btn primary" id="confirmImportBtn" onclick="confirmImport()" disabled>确认导入</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let importedData = null;
+        let importedFileName = '';
+
+        // 加载在线题库
         async function loadBanks() {
             const bankListEl = document.getElementById('bank-list');
             
@@ -38,8 +304,7 @@
                 const indexData = await response.json();
                 const banks = indexData.banks || [];
                 
-                console.log(`✓ 加载成功: ${banks.length} 个题库`);
-                console.log(`📊 最后更新时间: ${new Date(indexData.lastUpdated).toLocaleString('zh-CN')}`);
+                console.log(`✓ 加载成功: ${banks.length} 个在线题库`);
                 
                 if (banks.length === 0) {
                     showEmptyState(bankListEl);
@@ -52,6 +317,58 @@
                 console.error('加载题库索引失败:', error);
                 showErrorState(bankListEl, error);
             }
+        }
+
+        // 加载本地题库
+        function loadLocalBanks() {
+            const localBanks = JSON.parse(localStorage.getItem('localBanks') || '[]');
+            const section = document.getElementById('local-banks-section');
+            const container = document.getElementById('local-bank-list');
+
+            if (localBanks.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            container.innerHTML = '';
+
+            localBanks.forEach((bank, index) => {
+                const bankCard = document.createElement('div');
+                bankCard.className = 'bank-card local';
+                bankCard.innerHTML = `
+                    <button class="delete-local-btn" onclick="deleteLocalBank(${index}); event.stopPropagation();">🗑️ 删除</button>
+                    <h3>📱 ${bank.name}</h3>
+                    <p style="margin-top: 8px;">
+                        📝 ${bank.questions.length} 道题目
+                    </p>
+                    <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.7;">
+                        💾 本地存储 • ${new Date(bank.importedAt).toLocaleString('zh-CN')}
+                    </p>
+                `;
+                bankCard.onclick = () => {
+                    localStorage.setItem('selectedBank', JSON.stringify({
+                        name: bank.name,
+                        questionCount: bank.questions.length,
+                        file: 'local',
+                        questions: bank.questions
+                    }));
+                    location.href = 'quiz.html';
+                };
+                container.appendChild(bankCard);
+            });
+        }
+
+        // 删除本地题库
+        function deleteLocalBank(index) {
+            if (!confirm('确定要删除这个本地题库吗？')) return;
+            
+            const localBanks = JSON.parse(localStorage.getItem('localBanks') || '[]');
+            localBanks.splice(index, 1);
+            localStorage.setItem('localBanks', JSON.stringify(localBanks));
+            loadLocalBanks();
+            
+            alert('✅ 题库已删除！');
         }
 
         function displayBanks(banks, container, indexData) {
@@ -71,7 +388,7 @@
                 const bankCard = document.createElement('div');
                 bankCard.className = 'bank-card';
                 bankCard.innerHTML = `
-                    <h3>${bank.name}</h3>
+                    <h3>☁️ ${bank.name}</h3>
                     <p style="margin-top: 8px;">
                         📝 ${bank.questionCount} 道题目
                     </p>
@@ -86,12 +403,11 @@
                 container.appendChild(bankCard);
             });
 
-            // Material 3 Stats Card
             const statsDiv = document.createElement('div');
             statsDiv.className = 'stats-card';
             statsDiv.innerHTML = `
                 <div style="font-size: 1.1em; margin-bottom: 8px; font-weight: 500;">
-                    ✅ 成功加载 <strong>${indexData.totalBanks}</strong> 个题库
+                    ✅ 成功加载 <strong>${indexData.totalBanks}</strong> 个在线题库
                 </div>
                 <div style="font-size: 0.95em; opacity: 0.9;">
                     共 <strong>${indexData.totalQuestions}</strong> 道题目
@@ -106,10 +422,10 @@
         function showEmptyState(container) {
             container.innerHTML = `
                 <div style="text-align: center; padding: 40px;">
-                    <p style="color: var(--md-sys-color-tertiary); font-size: 1.3em; margin-bottom: 15px;">📚 暂无题库</p>
+                    <p style="color: var(--md-sys-color-tertiary); font-size: 1.3em; margin-bottom: 15px;">📚 暂无在线题库</p>
                     <div style="text-align: left; max-width: 600px; margin: 0 auto; background: var(--md-sys-color-surface-variant); padding: 20px; border-radius: var(--md-sys-shape-corner-large);">
                         <p style="color: var(--md-sys-color-on-surface-variant); font-size: 0.95em; margin-bottom: 10px;">
-                            <strong>如何添加题库：</strong>
+                            <strong>如何添加在线题库：</strong>
                         </p>
                         <ol style="color: var(--md-sys-color-on-surface-variant); font-size: 0.9em; line-height: 1.8; padding-left: 20px;">
                             <li>在 <code>data/</code> 文件夹中添加 JSON 文件</li>
@@ -142,7 +458,159 @@
             `;
         }
 
-        window.onload = loadBanks;
+        // ========== 导入功能 ==========
+
+        function showImportModal() {
+            document.getElementById('importModal').style.display = 'block';
+            resetImportModal();
+        }
+
+        function closeImportModal() {
+            document.getElementById('importModal').style.display = 'none';
+            resetImportModal();
+        }
+
+        function resetImportModal() {
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileInputLabel').classList.remove('has-file');
+            document.getElementById('fileInputLabel').innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 10px;">📄</div>
+                <div style="font-weight: 500; margin-bottom: 5px;">点击选择 JSON 文件</div>
+                <div style="font-size: 0.9em; opacity: 0.7;">或拖拽文件到此处</div>
+            `;
+            document.getElementById('fileInfo').style.display = 'none';
+            document.getElementById('confirmImportBtn').disabled = true;
+            importedData = null;
+            importedFileName = '';
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.name.endsWith('.json')) {
+                alert('❌ 请选择 JSON 文件！');
+                return;
+            }
+
+            importedFileName = file.name.replace('.json', '');
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const jsonContent = e.target.result;
+                    const data = JSON.parse(jsonContent);
+                    
+                    if (!Array.isArray(data)) {
+                        throw new Error('JSON 必须是数组格式');
+                    }
+
+                    for (let i = 0; i < data.length; i++) {
+                        const q = data[i];
+                        if (!q.question || !Array.isArray(q.options) || q.correctAnswer === undefined) {
+                            throw new Error(`第 ${i + 1} 题格式不正确`);
+                        }
+                    }
+
+                    importedData = data;
+                    
+                    document.getElementById('fileInputLabel').classList.add('has-file');
+                    document.getElementById('fileInputLabel').innerHTML = `
+                        <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+                        <div style="font-weight: 500; margin-bottom: 5px;">文件已选择</div>
+                        <div style="font-size: 0.9em; opacity: 0.7;">${file.name}</div>
+                    `;
+                    
+                    const fileInfo = document.getElementById('fileInfo');
+                    fileInfo.style.display = 'block';
+                    fileInfo.innerHTML = `
+                        <strong>📊 文件信息：</strong><br>
+                        文件名：${file.name}<br>
+                        题目数量：${data.length} 题<br>
+                        文件大小：${(file.size / 1024).toFixed(2)} KB
+                    `;
+                    
+                    document.getElementById('confirmImportBtn').disabled = false;
+                    
+                } catch (error) {
+                    alert('❌ JSON 格式错误：' + error.message);
+                    resetImportModal();
+                }
+            };
+
+            reader.onerror = function() {
+                alert('❌ 文件读取失败！');
+                resetImportModal();
+            };
+
+            reader.readAsText(file);
+        }
+
+        function confirmImport() {
+            if (!importedData) {
+                alert('❌ 请先选择文件！');
+                return;
+            }
+
+            const localBanks = JSON.parse(localStorage.getItem('localBanks') || '[]');
+            
+            // 检查是否已存在同名题库
+            const existingIndex = localBanks.findIndex(b => b.name === importedFileName);
+            if (existingIndex !== -1) {
+                if (!confirm(`题库 "${importedFileName}" 已存在，是否覆盖？`)) {
+                    return;
+                }
+                localBanks.splice(existingIndex, 1);
+            }
+
+            localBanks.push({
+                name: importedFileName,
+                questions: importedData,
+                importedAt: new Date().toISOString()
+            });
+
+            localStorage.setItem('localBanks', JSON.stringify(localBanks));
+            
+            closeImportModal();
+            loadLocalBanks();
+            
+            alert(`✅ 成功导入题库 "${importedFileName}"（${importedData.length} 题）！`);
+        }
+
+        // 文件拖拽支持
+        const fileInputLabel = document.getElementById('fileInputLabel');
+        
+        fileInputLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        fileInputLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                handleFileSelect({ target: { files: files } });
+            }
+        });
+
+        fileInputLabel.addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('importModal');
+            if (event.target === modal) {
+                closeImportModal();
+            }
+        });
+
+        window.onload = function() {
+            loadBanks();
+            loadLocalBanks();
+        };
     </script>
 </body>
 </html>

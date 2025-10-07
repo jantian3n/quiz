@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题目编辑器 - Material Design 3</title>
+    <!-- Material Design 3 Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .editor-container {
+            display: flex;
+            height: 100vh;
+            background: var(--md-sys-color-background);
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: var(--md-sys-color-surface);
+            border-right: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .right-panel {
+            flex: 1;
+            padding: 24px;
+            background: var(--md-sys-color-surface-variant);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .panel-title {
+            font-size: var(--md-sys-typescale-headline-medium-size);
+            font-weight: 400;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 10px 24px;
+            min-height: 40px;
+            font-size: var(--md-sys-typescale-body-large-size);
+            font-weight: 500;
+            border: none;
+            border-radius: var(--md-sys-shape-corner-large);
+            cursor: pointer;
+            transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+            box-shadow: var(--md-sys-elevation-1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn.add {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .action-btn.import {
+            background: var(--md-sys-color-secondary);
+            color: var(--md-sys-color-on-secondary);
+        }
+
+        .action-btn.back {
+            background: var(--md-sys-color-tertiary);
+            color: var(--md-sys-color-on-tertiary);
+        }
+
+        .action-btn:hover {
+            box-shadow: var(--md-sys-elevation-2);
+        }
+
+        .action-btn:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .question-card {
+            background: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: var(--md-sys-shape-corner-large);
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--md-sys-elevation-1);
+            position: relative;
+            transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+        }
+
+        .question-card:hover {
+            box-shadow: var(--md-sys-elevation-2);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--md-sys-shape-corner-small);
+            cursor: pointer;
+            font-size: var(--md-sys-typescale-body-medium-size);
+            font-weight: 500;
+            transition: all var(--md-sys-motion-duration-short);
+        }
+
+        .delete-btn:hover {
+            background: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        .question-number {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 6px 16px;
+            border-radius: var(--md-sys-shape-corner-large);
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: var(--md-sys-typescale-body-medium-size);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--md-sys-color-on-surface);
+            font-size: var(--md-sys-typescale-body-large-size);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: var(--md-sys-shape-corner-small);
+            font-size: var(--md-sys-typescale-body-large-size);
+            font-family: 'Roboto', sans-serif;
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            transition: border-color var(--md-sys-motion-duration-short);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            border-width: 2px;
+            padding: 11px 15px;
+        }
+
+        .options-group {
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .option-radio {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--md-sys-color-primary);
+        }
+
+        .option-label {
+            font-weight: 500;
+            min-width: 30px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .option-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: var(--md-sys-shape-corner-small);
+            font-size: var(--md-sys-typescale-body-large-size);
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            transition: all var(--md-sys-motion-duration-short);
+        }
+
+        .option-item.correct .option-input {
+            border-color: var(--md-sys-color-success);
+            background: var(--md-sys-color-success-container);
+            border-width: 2px;
+            padding: 11px 15px;
+        }
+
+        .json-header {
+            color: var(--md-sys-color-on-surface-variant);
+            margin-bottom: 16px;
+            font-size: var(--md-sys-typescale-title-large-size);
+            font-weight: 400;
+        }
+
+        .json-actions {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .json-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--md-sys-shape-corner-medium);
+            cursor: pointer;
+            font-size: var(--md-sys-typescale-body-medium-size);
+            font-weight: 500;
+            transition: all var(--md-sys-motion-duration-short);
+            box-shadow: var(--md-sys-elevation-1);
+        }
+
+        .json-btn.copy {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .json-btn.download {
+            background: var(--md-sys-color-success);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .json-btn:hover {
+            box-shadow: var(--md-sys-elevation-2);
+        }
+
+        .json-display {
+            flex: 1;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: var(--md-sys-shape-corner-medium);
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d4d4d4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            box-shadow: var(--md-sys-elevation-2);
+        }
+
+        .json-key { color: #9cdcfe; }
+        .json-string { color: #ce9178; }
+        .json-number { color: #b5cea8; }
+        .json-boolean { color: #569cd6; }
+        .json-null { color: #569cd6; }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: var(--md-sys-typescale-body-large-size);
+        }
+
+        .import-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.32);
+            backdrop-filter: blur(4px);
+            animation: fadeIn var(--md-sys-motion-duration-medium);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .import-modal-content {
+            background-color: var(--md-sys-color-surface);
+            margin: 10% auto;
+            padding: 32px;
+            border-radius: var(--md-sys-shape-corner-extra-large);
+            width: 90%;
+            max-width: 540px;
+            box-shadow: var(--md-sys-elevation-4);
+            animation: modalSlideIn var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            font-size: var(--md-sys-typescale-headline-small-size);
+            font-weight: 400;
+            margin-bottom: 24px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .file-input-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 48px 24px;
+            background: var(--md-sys-color-surface-variant);
+            border: 2px dashed var(--md-sys-color-outline);
+            border-radius: var(--md-sys-shape-corner-large);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--md-sys-motion-duration-short);
+        }
+
+        .file-input-label:hover {
+            background: var(--md-sys-color-secondary-container);
+            border-color: var(--md-sys-color-secondary);
+        }
+
+        .file-input-label.has-file {
+            background: var(--md-sys-color-primary-container);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .modal-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: var(--md-sys-shape-corner-large);
+            cursor: pointer;
+            font-size: var(--md-sys-typescale-body-large-size);
+            font-weight: 500;
+            transition: all var(--md-sys-motion-duration-short);
+        }
+
+        .modal-btn.primary {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            box-shadow: var(--md-sys-elevation-1);
+        }
+
+        .modal-btn.primary:hover {
+            box-shadow: var(--md-sys-elevation-2);
+        }
+
+        .modal-btn.secondary {
+            background: transparent;
+            color: var(--md-sys-color-primary);
+        }
+
+        .modal-btn.secondary:hover {
+            background: rgba(103, 80, 164, 0.08);
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: var(--md-sys-shape-corner-medium);
+            cursor: pointer;
+            transition: all var(--md-sys-motion-duration-short);
+        }
+
+        .radio-option:hover {
+            background-color: var(--md-sys-color-surface-variant);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--md-sys-color-primary);
+        }
+
+        .radio-option-content {
+            flex: 1;
+        }
+
+        .radio-option-title {
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 4px;
+        }
+
+        .radio-option-desc {
+            font-size: var(--md-sys-typescale-body-medium-size);
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        @media (max-width: 768px) {
+            .editor-container {
+                flex-direction: column;
+            }
+
+            .left-panel, .right-panel {
+                border: none;
+            }
+
+            .right-panel {
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- 左侧面板：题目编辑 -->
+        <div class="left-panel">
+            <div class="panel-header">
+                <div class="panel-title">📝 题目编辑器</div>
+                <div class="header-actions">
+                    <button class="action-btn back" onclick="location.href='select.html'">🔙 返回</button>
+                    <button class="action-btn import" onclick="showImportModal()">📥 导入</button>
+                    <button class="action-btn add" onclick="addQuestion()">➕ 添加题目</button>
+                </div>
+            </div>
+            <div id="questionsContainer">
+                <div class="empty-state">
+                    点击"添加题目"开始创建题目<br>或点击"导入"导入现有题目
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧面板：JSON预览 -->
+        <div class="right-panel">
+            <div class="json-header">📄 JSON 输出</div>
+            <div class="json-actions">
+                <button class="json-btn copy" onclick="copyJSON()">📋 复制</button>
+                <button class="json-btn download" onclick="downloadJSON()">⬇️ 下载</button>
+            </div>
+            <div class="json-display" id="jsonDisplay">[]</div>
+        </div>
+    </div>
+
+    <!-- 导入模态框 -->
+    <div id="importModal" class="import-modal">
+        <div class="import-modal-content">
+            <div class="modal-header">📥 导入 JSON 文件</div>
+            <div class="modal-body">
+                <div class="file-input-wrapper">
+                    <label class="file-input-label" id="fileInputLabel">
+                        <div style="font-size: 48px; margin-bottom: 10px;">📄</div>
+                        <div style="font-weight: 500; margin-bottom: 5px;">点击选择 JSON 文件</div>
+                        <div style="font-size: 0.9em; opacity: 0.7;">或拖拽文件到此处</div>
+                    </label>
+                    <input type="file" id="fileInput" class="file-input" accept=".json" onchange="handleFileSelect(event)">
+                </div>
+                <div id="fileInfo" style="display: none; padding: 12px; background: var(--md-sys-color-surface-variant); border-radius: var(--md-sys-shape-corner-medium); font-size: 0.9em;"></div>
+                
+                <div id="importOptions" style="display: none; margin-top: 20px;">
+                    <label class="radio-option">
+                        <input type="radio" name="importMode" value="replace" checked>
+                        <div class="radio-option-content">
+                            <div class="radio-option-title">🔄 替换现有题目</div>
+                            <div class="radio-option-desc">清空当前所有题目，导入新题目</div>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="importMode" value="append">
+                        <div class="radio-option-content">
+                            <div class="radio-option-title">➕ 追加到末尾</div>
+                            <div class="radio-option-desc">保留现有题目，在末尾添加导入的题目</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" onclick="closeImportModal()">取消</button>
+                <button class="modal-btn primary" id="confirmImportBtn" onclick="confirmImport()" disabled>确认导入</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let questions = [];
+        let questionCounter = 0;
+        let importedData = null;
+
+        function addQuestion() {
+            questionCounter++;
+            const question = {
+                id: questionCounter,
+                question: '',
+                options: ['', '', '', ''],
+                correctAnswer: 0,
+                explanation: ''
+            };
+            questions.push(question);
+            renderQuestions();
+            updateJSON();
+        }
+
+        function deleteQuestion(index) {
+            if (confirm('确定要删除这道题目吗？')) {
+                questions.splice(index, 1);
+                renderQuestions();
+                updateJSON();
+            }
+        }
+
+        function updateQuestionData(index, field, value) {
+            questions[index][field] = value;
+            updateJSON();
+        }
+
+        function updateOption(qIndex, optIndex, value) {
+            questions[qIndex].options[optIndex] = value;
+            updateJSON();
+        }
+
+        function setCorrectAnswer(qIndex, optIndex) {
+            questions[qIndex].correctAnswer = optIndex;
+            renderQuestions();
+            updateJSON();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            
+            if (questions.length === 0) {
+                container.innerHTML = '<div class="empty-state">点击"添加题目"开始创建题目<br>或点击"导入"导入现有题目</div>';
+                return;
+            }
+
+            container.innerHTML = questions.map((q, qIndex) => `
+                <div class="question-card">
+                    <button class="delete-btn" onclick="deleteQuestion(${qIndex})">🗑️ 删除</button>
+                    <div class="question-number">题目 ${qIndex + 1}</div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">题目内容</label>
+                        <textarea 
+                            class="form-textarea" 
+                            placeholder="请输入题目内容..."
+                            oninput="updateQuestionData(${qIndex}, 'question', this.value)"
+                        >${q.question}</textarea>
+                    </div>
+
+                    <div class="options-group">
+                        <label class="form-label">选项（选择正确答案）</label>
+                        ${q.options.map((opt, optIndex) => `
+                            <div class="option-item ${q.correctAnswer === optIndex ? 'correct' : ''}">
+                                <input 
+                                    type="radio" 
+                                    name="correct_${qIndex}" 
+                                    class="option-radio"
+                                    ${q.correctAnswer === optIndex ? 'checked' : ''}
+                                    onchange="setCorrectAnswer(${qIndex}, ${optIndex})"
+                                >
+                                <span class="option-label">${String.fromCharCode(65 + optIndex)}.</span>
+                                <input 
+                                    type="text" 
+                                    class="option-input" 
+                                    placeholder="请输入选项内容..."
+                                    value="${opt}"
+                                    oninput="updateOption(${qIndex}, ${optIndex}, this.value)"
+                                >
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">解析（可选）</label>
+                        <textarea 
+                            class="form-textarea" 
+                            placeholder="请输入题目解析..."
+                            oninput="updateQuestionData(${qIndex}, 'explanation', this.value)"
+                        >${q.explanation}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateJSON() {
+            const jsonData = questions.map((q, index) => ({
+                id: index + 1,
+                question: q.question,
+                options: q.options,
+                correctAnswer: q.correctAnswer,
+                explanation: q.explanation
+            }));
+
+            const jsonString = JSON.stringify(jsonData, null, 2);
+            const highlighted = syntaxHighlight(jsonString);
+            document.getElementById('jsonDisplay').innerHTML = highlighted;
+        }
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function copyJSON() {
+            const jsonData = questions.map((q, index) => ({
+                id: index + 1,
+                question: q.question,
+                options: q.options,
+                correctAnswer: q.correctAnswer,
+                explanation: q.explanation
+            }));
+
+            const jsonString = JSON.stringify(jsonData, null, 2);
+            navigator.clipboard.writeText(jsonString).then(() => {
+                alert('✅ JSON已复制到剪贴板！');
+            }).catch(() => {
+                alert('❌ 复制失败，请手动复制');
+            });
+        }
+
+        function downloadJSON() {
+            const jsonData = questions.map((q, index) => ({
+                id: index + 1,
+                question: q.question,
+                options: q.options,
+                correctAnswer: q.correctAnswer,
+                explanation: q.explanation
+            }));
+
+            const jsonString = JSON.stringify(jsonData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `questions_${new Date().getTime()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function showImportModal() {
+            document.getElementById('importModal').style.display = 'block';
+            resetImportModal();
+        }
+
+        function closeImportModal() {
+            document.getElementById('importModal').style.display = 'none';
+            resetImportModal();
+        }
+
+        function resetImportModal() {
+            document.getElementById('fileInput').value = '';
+            document.getElementById('fileInputLabel').classList.remove('has-file');
+            document.getElementById('fileInputLabel').innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 10px;">📄</div>
+                <div style="font-weight: 500; margin-bottom: 5px;">点击选择 JSON 文件</div>
+                <div style="font-size: 0.9em; opacity: 0.7;">或拖拽文件到此处</div>
+            `;
+            document.getElementById('fileInfo').style.display = 'none';
+            document.getElementById('importOptions').style.display = 'none';
+            document.getElementById('confirmImportBtn').disabled = true;
+            document.querySelector('input[name="importMode"][value="replace"]').checked = true;
+            importedData = null;
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.name.endsWith('.json')) {
+                alert('❌ 请选择 JSON 文件！');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const jsonContent = e.target.result;
+                    const data = JSON.parse(jsonContent);
+                    
+                    if (!Array.isArray(data)) {
+                        throw new Error('JSON 必须是数组格式');
+                    }
+
+                    for (let i = 0; i < data.length; i++) {
+                        const q = data[i];
+                        if (!q.question || !Array.isArray(q.options) || q.correctAnswer === undefined) {
+                            throw new Error(`第 ${i + 1} 题格式不正确`);
+                        }
+                    }
+
+                    importedData = data;
+                    
+                    document.getElementById('fileInputLabel').classList.add('has-file');
+                    document.getElementById('fileInputLabel').innerHTML = `
+                        <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+                        <div style="font-weight: 500; margin-bottom: 5px;">文件已选择</div>
+                        <div style="font-size: 0.9em; opacity: 0.7;">${file.name}</div>
+                    `;
+                    
+                    const fileInfo = document.getElementById('fileInfo');
+                    fileInfo.style.display = 'block';
+                    fileInfo.innerHTML = `
+                        <strong>📊 文件信息：</strong><br>
+                        文件名：${file.name}<br>
+                        题目数量：${data.length} 题<br>
+                        文件大小：${(file.size / 1024).toFixed(2)} KB
+                    `;
+                    
+                    if (questions.length > 0) {
+                        document.getElementById('importOptions').style.display = 'block';
+                    }
+                    
+                    document.getElementById('confirmImportBtn').disabled = false;
+                    
+                } catch (error) {
+                    alert('❌ JSON 格式错误：' + error.message);
+                    resetImportModal();
+                }
+            };
+
+            reader.onerror = function() {
+                alert('❌ 文件读取失败！');
+                resetImportModal();
+            };
+
+            reader.readAsText(file);
+        }
+
+        function confirmImport() {
+            if (!importedData) {
+                alert('❌ 请先选择文件！');
+                return;
+            }
+
+            const importMode = document.querySelector('input[name="importMode"]:checked').value;
+            
+            if (importMode === 'replace') {
+                if (questions.length > 0) {
+                    if (!confirm(`确定要替换现有的 ${questions.length} 道题目吗？`)) {
+                        return;
+                    }
+                }
+                questions = [];
+                questionCounter = 0;
+            }
+
+            importedData.forEach(q => {
+                questionCounter++;
+                questions.push({
+                    id: questionCounter,
+                    question: q.question || '',
+                    options: q.options || ['', '', '', ''],
+                    correctAnswer: q.correctAnswer || 0,
+                    explanation: q.explanation || ''
+                });
+            });
+
+            renderQuestions();
+            updateJSON();
+            closeImportModal();
+            
+            alert(`✅ 成功导入 ${importedData.length} 道题目！`);
+        }
+
+        const fileInputLabel = document.getElementById('fileInputLabel');
+        
+        fileInputLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        fileInputLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                handleFileSelect({ target: { files: files } });
+            }
+        });
+
+        fileInputLabel.addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('importModal');
+            if (event.target === modal) {
+                closeImportModal();
+            }
+        });
+
+        updateJSON();
+    </script>
+</body>
+</html>
