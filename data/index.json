@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2025-10-07T07:57:16.889Z",
-  "totalBanks": 26,
-  "totalQuestions": 230,
+  "lastUpdated": "2025-10-07T09:36:27.076Z",
+  "totalBanks": 27,
+  "totalQuestions": 260,
   "banks": [
     {
       "id": "бить辨析",
@@ -157,6 +157,12 @@
       "id": "同根词",
       "name": "同根词",
       "file": "data/同根词.json",
+      "questionCount": 30
+    },
+    {
+      "id": "积极词汇",
+      "name": "积极词汇",
+      "file": "data/积极词汇.json",
       "questionCount": 30
     }
   ]
