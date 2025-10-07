@@ -8,19 +8,47 @@ let questionOrder = [];
 async function loadQuestions() {
     const selectedBank = JSON.parse(localStorage.getItem('selectedBank'));
     if (!selectedBank) {
+        alert('❌ 未选择题库');
         location.href = 'select.html';
         return;
     }
 
     try {
-        const response = await fetch(selectedBank.file);
-        questions = await response.json();
+        // 🔧 关键修改：检查是否为本地题库
+        if (selectedBank.file === 'local' && selectedBank.questions) {
+            // 本地题库：直接使用 questions 字段
+            questions = selectedBank.questions;
+            console.log(`✅ 加载本地题库: ${selectedBank.name} (${questions.length} 题)`);
+        } else {
+            // 在线题库：从服务器加载
+            const response = await fetch(selectedBank.file, {
+                cache: 'no-cache',
+                headers: {
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            questions = await response.json();
+            console.log(`✅ 加载在线题库: ${selectedBank.name} (${questions.length} 题)`);
+        }
+
+        // 验证数据格式
+        if (!Array.isArray(questions) || questions.length === 0) {
+            throw new Error('题库数据格式错误或为空');
+        }
+
         userAnswers = new Array(questions.length).fill(null);
         questionOrder = questions.map((_, i) => i);
         initQuiz();
+        
     } catch (error) {
-        alert('加载题库失败，请检查文件路径');
-        console.error(error);
+        console.error('❌ 加载题库失败:', error);
+        alert(`加载题库失败\n\n错误信息: ${error.message}\n\n请返回重新选择题库`);
+        location.href = 'select.html';
     }
 }
 
