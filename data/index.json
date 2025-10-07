@@ -1,13 +1,157 @@
 {
-  "lastUpdated": "2025-10-06T16:32:33.897Z",
-  "totalBanks": 2,
-  "totalQuestions": 41,
+  "lastUpdated": "2025-10-07T07:57:16.889Z",
+  "totalBanks": 26,
+  "totalQuestions": 230,
   "banks": [
     {
       "id": "бить辨析",
       "name": "бить辨析",
       "file": "data/бить辨析.json",
       "questionCount": 11
+    },
+    {
+      "id": "браться 词根_quiz",
+      "name": "браться 词根_quiz",
+      "file": "data/браться 词根_quiz.json",
+      "questionCount": 5
+    },
+    {
+      "id": "везти 词根_quiz",
+      "name": "везти 词根_quiz",
+      "file": "data/везти 词根_quiz.json",
+      "questionCount": 9
+    },
+    {
+      "id": "вести 词根_quiz",
+      "name": "вести 词根_quiz",
+      "file": "data/вести 词根_quiz.json",
+      "questionCount": 13
+    },
+    {
+      "id": "говорить 词根_quiz",
+      "name": "говорить 词根_quiz",
+      "file": "data/говорить 词根_quiz.json",
+      "questionCount": 19
+    },
+    {
+      "id": "готовить 词根_quiz",
+      "name": "готовить 词根_quiz",
+      "file": "data/готовить 词根_quiz.json",
+      "questionCount": 3
+    },
+    {
+      "id": "дать_quiz",
+      "name": "дать_quiz",
+      "file": "data/дать_quiz.json",
+      "questionCount": 13
+    },
+    {
+      "id": "думать 词根_quiz",
+      "name": "думать 词根_quiz",
+      "file": "data/думать 词根_quiz.json",
+      "questionCount": 6
+    },
+    {
+      "id": "жить 词根_quiz",
+      "name": "жить 词根_quiz",
+      "file": "data/жить 词根_quiz.json",
+      "questionCount": 15
+    },
+    {
+      "id": "ключ 词根_quiz",
+      "name": "ключ 词根_quiz",
+      "file": "data/ключ 词根_quiz.json",
+      "questionCount": 4
+    },
+    {
+      "id": "крыть 词根_quiz",
+      "name": "крыть 词根_quiz",
+      "file": "data/крыть 词根_quiz.json",
+      "questionCount": 4
+    },
+    {
+      "id": "менять 词根_quiz",
+      "name": "менять 词根_quiz",
+      "file": "data/менять 词根_quiz.json",
+      "questionCount": 8
+    },
+    {
+      "id": "метить 词根_quiz",
+      "name": "метить 词根_quiz",
+      "file": "data/метить 词根_quiz.json",
+      "questionCount": 4
+    },
+    {
+      "id": "писать 词根_quiz",
+      "name": "писать 词根_quiz",
+      "file": "data/писать 词根_quiz.json",
+      "questionCount": 4
+    },
+    {
+      "id": "помнить 词根_quiz",
+      "name": "помнить 词根_quiz",
+      "file": "data/помнить 词根_quiz.json",
+      "questionCount": 5
+    },
+    {
+      "id": "пускать 词根_quiz",
+      "name": "пускать 词根_quiz",
+      "file": "data/пускать 词根_quiz.json",
+      "questionCount": 6
+    },
+    {
+      "id": "работать 词根_quiz",
+      "name": "работать 词根_quiz",
+      "file": "data/работать 词根_quiz.json",
+      "questionCount": 10
+    },
+    {
+      "id": "рвать_quiz",
+      "name": "рвать_quiz",
+      "file": "data/рвать_quiz.json",
+      "questionCount": 8
+    },
+    {
+      "id": "ставить 词根_quiz",
+      "name": "ставить 词根_quiz",
+      "file": "data/ставить 词根_quiz.json",
+      "questionCount": 12
+    },
+    {
+      "id": "строить 词根_quiz",
+      "name": "строить 词根_quiz",
+      "file": "data/строить 词根_quiz.json",
+      "questionCount": 12
+    },
+    {
+      "id": "ступать 词根_quiz",
+      "name": "ступать 词根_quiz",
+      "file": "data/ступать 词根_quiz.json",
+      "questionCount": 11
+    },
+    {
+      "id": "счёт 词根_quiz",
+      "name": "счёт 词根_quiz",
+      "file": "data/счёт 词根_quiz.json",
+      "questionCount": 4
+    },
+    {
+      "id": "учить 词根_quiz",
+      "name": "учить 词根_quiz",
+      "file": "data/учить 词根_quiz.json",
+      "questionCount": 3
+    },
+    {
+      "id": "хватить 词根_quiz",
+      "name": "хватить 词根_quiz",
+      "file": "data/хватить 词根_quiz.json",
+      "questionCount": 4
+    },
+    {
+      "id": "являть 词根_quiz",
+      "name": "являть 词根_quiz",
+      "file": "data/являть 词根_quiz.json",
+      "questionCount": 7
     },
     {
       "id": "同根词",
