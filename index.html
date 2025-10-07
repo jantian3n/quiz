@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>记什么都行的题库</title>
+    <title>CATTI俄语二级笔译题库</title>
     <!-- Material Design 3 Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>记什么都行的题库</h1>
+        <h1>CATTI俄语二级笔译题库</h1>
         <div class="button-group">
             <button class="main-btn" onclick="location.href='select.html'">
                 开始练习
@@ -25,19 +25,28 @@
         </div>
     </div>
 
-    <div id="instructions-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeInstructions()">&times;</span>
-            <h2>使用说明</h2>
-            <ul>
-                <li>选择题库后，可以选择三种模式：顺序做题、乱序做题、直接看题</li>
-                <li>绿色表示答对的题目，红色表示答错的题目</li>
-                <li>点击题号可以快速跳转到对应题目</li>
-                <li>答错后会显示详细解析</li>
-                <li>附：你每天都会忘记很多事，那为什么不是这一件😅。</li>
-            </ul>
-        </div>
+<div id="instructions-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInstructions()">&times;</span>
+        <h2>📖 使用说明</h2>
+        <ul>
+            <li><strong>📚 题库类型：</strong>支持在线题库（GitHub加载）和本地题库（离线使用），还可以自己创建专属题库</li>
+            <li><strong>📝 答题模式：</strong>
+                <ul style="margin-top: 8px;">
+                    <li>🔢 顺序做题 - 按顺序依次答题，适合系统学习</li>
+                    <li>🔀 乱序做题 - 随机打乱顺序，检验真实水平</li>
+                    <li>👀 直接看题 - 显示答案和解析，快速复习</li>
+                </ul>
+            </li>
+            <li><strong>🎨 状态提示：</strong>绿色表示答对 ✅，红色表示答错 ❌，灰色表示未作答</li>
+            <li><strong>💡 快捷操作：</strong>点击左侧题号可快速跳转，答错后自动显示详细解析</li>
+            <li><strong>💾 本地题库：</strong>在"选择题库"页面可导入JSON文件，数据保存在浏览器本地</li>
+            <li style="margin-top: 16px; padding: 12px; background: rgba(103, 80, 164, 0.1); border-radius: 8px; border-left: 4px solid #6750A4;">
+                <strong>🌟 温馨提示：</strong>你每天都会忘记很多事，那为什么不是这一件？😅
+            </li>
+        </ul>
     </div>
+</div>
 
     <script>
         function showInstructions() {
